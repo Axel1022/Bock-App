@@ -3,17 +3,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{pageTitle}}</title>
-    <link rel="stylesheet" href="/public/css/bootstrap/bootstrap.min.css" />
+    <link
+      rel="icon"
+      href="/assets/img/icons8-libro-96.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="/css/bootstrap/bootstrap.min.css" />
   </head>
   <body>
-    <div class="container mt-4">
+    <div class="mb-4">
       <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
-          <a class="navbar-brand" href="/">
+          <a class="navbar-brand m-2" href="/">
             <img
-              src="/public/assets/img/icons8-libro-96.png"
-              width="50"
-              height="50"
+              src="/assets/img/icons8-libro-96.png"
+              width="40"
+              height="40"
               alt="Online icons8 libro"
             />
           </a>
@@ -31,14 +36,20 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item active">
-                <a class="nav-link" href="/">Home
+                <a class="nav-link" href="">Home
                   <span class="sr-only"></span></a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/managerSerie">Series</a>
+                <a class="nav-link" href="#">Libros</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/managerGenero">Géneros</a>
+                <a class="nav-link" href="#">Categorias</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Autores</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Editoriales</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link disabled" href="#">Elmer🌴</a>
@@ -49,8 +60,11 @@
       </header>
       <main>
 
-        {{{body}}}
+        <div class="m-2">
 
+          {{{body}}}
+
+        </div>
 
       </main>
       <footer class="py-3 mt-4">
@@ -66,7 +80,7 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
-    <script src="/public/js/bootstrap/bootstrap.min.js"></script>
+    <script src="/js/bootstrap/bootstrap.min.js"></script>
 
     {{!-- {{#if IsListSerie}}
     <script src="/js/delete.js"></script>
