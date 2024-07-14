@@ -27,8 +27,10 @@ app.use(bodyParser.json());
 const homeController = require("./routers/homeRouter");
 const errorController = require("./controllers/404Controller");
 const autoresController = require("./routers/autorRouter");
+const categoriasController = require("./routers/categoriaRouter");
 app.use(homeController);
 app.use(autoresController);
+app.use(categoriasController);
 app.use(errorController.get404);
 
 app.listen(puerto, () => {
