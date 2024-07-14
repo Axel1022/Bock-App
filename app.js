@@ -25,7 +25,11 @@ app.use(bodyParser.json());
 
 // Rutas
 const homeController = require("./routers/homeRouter");
+const errorController = require("./controllers/404Controller");
+const autoresController = require("./routers/autorRouter");
 app.use(homeController);
+app.use(autoresController);
+app.use(errorController.get404);
 
 app.listen(puerto, () => {
   console.log(`Servidor escuchando en el puerto ${puerto}`);
