@@ -29,12 +29,12 @@ const errorController = require("./controllers/404Controller");
 const autoresController = require("./routers/autorRouter");
 const categoriasController = require("./routers/categoriaRouter");
 const editoresController = require("./routers/editorRouter");
+const librosController = require("./routers/libroRouter");
 app.use(homeController);
 app.use(autoresController);
 app.use(categoriasController);
 app.use(editoresController);
+app.use(librosController);
 app.use(errorController.get404);
 
-app.listen(puerto, () => {
-  console.log(`Servidor escuchando en el puerto ${puerto}`);
-});
+app.listen(puerto);

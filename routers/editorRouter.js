@@ -1,7 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const homeController = require("../controllers/editorController");
+const editorController = require("../controllers/editorialeController");
 
-router.get("/editoriales", homeController.getHome);
+router.get("/editoriales", editorController.getHome);
+router.get("/admin/editoriales", editorController.getAdm);
+
 
 module.exports = router;

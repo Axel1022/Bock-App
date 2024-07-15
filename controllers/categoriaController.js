@@ -3,3 +3,8 @@ exports.getHome = (req, res, next) => {
     pageTitle: "CampuLibrary | Categorias",
   });
 };
+exports.getAdm = (req, res, next) => {
+  res.render("categorias/adm", {
+    pageTitle: "CampuLibrary | Adm - Categorias",
+  });
+};
