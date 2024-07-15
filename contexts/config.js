@@ -4,7 +4,7 @@ module.exports = config = {
   password: "",
   params: {
     dialect: "sqlite",
-    storage: "bockAppBD.sqlite",
+    storage: "bockApp-db.sqlite",
     define: {
       underscore: true,
     },
