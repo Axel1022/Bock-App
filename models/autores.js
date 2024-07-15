@@ -1,50 +1,27 @@
-const jsonFileHandler = require("../utils/jsonFileHandler");
-const path = require("path");
-const dataPath = path.join(
-  path.dirname(require.main.filename),
-  "data",
-  "pokemones.json"
-);
+// nombre del
+// autor, el correo del autor y la cantidad de libros que tienen asociado este autor
+const {DataTypes} = require("sequelize");
+const connetion = require("../contexts/appContext");
+const Autores = connetion.define("autores", {
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    allowNull: false,
+    primaryKey: true,
+  },
+  autorName: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  correo: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  cantidadLibros: {
+    type: DataTypes.SMALLINT,
+    allowNull: false,
+  },
+});
 
-module.exports = class pokemon {
-  constructor(id, Namepokemon, url, tipo, region) {
-    this.id = id;
-    this.Namepokemon = Namepokemon;
-    this.UrlImg = url;
-    this.Tipo = tipo;
-    this.Region = region;
-  }
-  save() {
-    jsonFileHandler.ReadAllData(dataPath, (pokemones) => {
-      if (this.id) {
-        const indexpokemon = pokemones.findIndex((p) => p.id === this.id);
-        if (indexpokemon) {
-          pokemones[indexpokemon] = this;
-          jsonFileHandler.WriteData(dataPath, pokemones);
-        }
-      } else {
-        this.id = Math.random().toString();
-        pokemones.push(this);
-        jsonFileHandler.WriteData(dataPath, pokemones);
-      }
-    });
-  }
-  static getAll(cb) {
-    jsonFileHandler.ReadAllData(dataPath, cb);
-  }
-  static getByID(id, cb) {
-    jsonFileHandler.ReadAllData(dataPath, function (pokemones) {
-      const pokemon = pokemones.find((r) => r.id === id);
-      cb(pokemon);
-    });
-  }
-  static delete(id) {
-    jsonFileHandler.ReadAllData(dataPath, function (pokemones) {
-      const NewListpokemones = pokemones.filter((p) => p.id !== id);
-      jsonFileHandler.WriteData(dataPath, NewListpokemones);
-    });
-  }
-  static buscar(info, cb) {
-    jsonFileHandler.BuscarNombre(dataPath, info, cb);
-  }
-};
+module.exports = Autores;
+

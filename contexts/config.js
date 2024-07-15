@@ -1,13 +1,15 @@
-module.exports = config = {
+const path = require("path");
+
+module.exports = {
   database: "bockApp",
   username: "",
   password: "",
   params: {
     dialect: "sqlite",
-    storage: "bockApp-db.sqlite",
+    storage: path.join(__dirname, "../database", "bockApp-db.sqlite"),
     define: {
-      underscore: true,
+      underscored: true,
     },
-    operatorAliases: false,
+    logging: false,
   },
 };
