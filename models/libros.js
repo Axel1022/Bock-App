@@ -23,15 +23,15 @@ const Libros = connetion.define("libros", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  idCategoria: {
+  Categoria: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  idAutor: {
+  Autor: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  idEditorial: {
+  Editorial: {
     type: DataTypes.STRING,
     allowNull: false,
   },

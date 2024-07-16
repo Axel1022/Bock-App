@@ -1,0 +1,53 @@
+<div class="container mt-5">
+  <div class="card">
+    <div class="card-header bg-primary text-white">
+      Formulario de Libros - Agregar
+    </div>
+    <div class="card-body">
+      <form method="POST" action="/postLibros">
+
+        <div class="form-group">
+          <label for="Titulo" class="form-label">Titulo:</label>
+          <input type="text" class="form-control" id="Titulo" name="titulo" required/>
+        </div>
+
+        <div class="form-group">
+          <label for="Anio" class="form-label">Año de publicación:</label>
+          <input type="text" class="form-control" id="Anio" name="anio" required/>
+        </div>
+
+        <div class="form-group">
+          <label for="Url" class="form-label">Url imagen de portada:</label>
+          <input type="url" class="form-control" id="Url" name="url" required/>
+        </div>
+
+
+        <div class="form-group">
+            <label for="categoria" class="form-label">Categoría:</label>
+            <select class="form-control" id="categoria" name="categoria" required>
+                <option value="0">Selecciona una categoría</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+        <label for="autor" class="form-label">Autor:</label>
+        <select class="form-control" id="autor" name="autor" required>
+            <option value="0">Selecciona un autor</option>
+        </select>
+        </div>
+
+        <div class="form-group">
+        <label for="editorial" class="form-label">Editorial:</label>
+        <select class="form-control" id="editorial" name="editorial" required>
+            <option value="0">Selecciona una editorial</option>
+        </select>
+        </div>
+
+        <div>
+          <button type="submit" class="btn btn-primary mt-3 float-end">Enviar</button>
+          <a href="/indexPokemones" class="btn btn-warning mt-3 float-end me-3">Cancelar</a>
+        </div>
+
+      </form>
+    </div>
+  </div>
