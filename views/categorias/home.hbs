@@ -15,10 +15,21 @@
                   {{this.cantidadLibros}}</small>
               </p>
             </div>
-            <div class="m-2">
-              <a href="#" class="btn btn-outline-warning mx-2">Editar</a>
-              <a href="#" class="btn btn-outline-danger">Eliminar</a>
-            </div>
+
+            <form
+              method="post"
+              action="/eliminarCategoria"
+              class="form-delete"
+              onsubmit="return confirm('¿Estás seguro de que deseas eliminar este categoria?');"
+            >
+              <a href="/adminEdd/categorias/{{this.id}}" class="btn btn-primary me-2">
+                Editar
+              </a>
+              <input type="hidden" value="{{this.id}}" name="eliminarId" />
+              <button type="submit" class="btn btn-danger delete">
+                Borrar
+              </button>
+            </form>
           </div>
         </div>
       {{/each}}

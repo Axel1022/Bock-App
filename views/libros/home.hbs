@@ -18,13 +18,28 @@
                   publicación:
                   {{this.anioPublic}}</small></p>
               <p class="card-text"><strong>Categoría:</strong>
-                {{this.idCategoria}}</p>
-              <p class="card-text"><strong>Autor:</strong> {{this.idAutor}}</p>
-              <p class="card-text"><strong>Editorial:</strong> {{this.idEditorial}}</p>
-              <div class="text-center mt-3 mt-auto">
+                {{this.Categoria}}</p>
+              <p class="card-text"><strong>Autor:</strong> {{this.Autor}}</p>
+              <p class="card-text"><strong>Editorial:</strong>
+                {{this.Editorial}}</p>
+              <form
+                method="post"
+                action="/eliminarLibro"
+                class="form-delete"
+                onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta editorial?');"
+              >
+                <a href="/adminEdd/libros/{{this.id}}" class="btn btn-primary me-2">
+                  Editar
+                </a>
+                <input type="hidden" value="{{this.id}}" name="eliminarId" />
+                <button type="submit" class="btn btn-danger delete">
+                  Borrar
+                </button>
+              </form>
+              {{! <div class="text-center mt-3 mt-auto">
                 <a href="#" class="btn btn-outline-warning mx-2">Editar</a>
                 <a href="#" class="btn btn-outline-danger mx-2">Eliminar</a>
-              </div>
+              </div> }}
             </div>
           </div>
         </div>

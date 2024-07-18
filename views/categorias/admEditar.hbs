@@ -4,15 +4,20 @@
       Formulario de Categorias - Editar
     </div>
     <div class="card-body">
-      <form method="POST" action="/">
-
+      <form method="POST" action="/adminEdd/categorias/post">
         <div class="form-group">
           <label for="Nombre" class="form-label">Nombre:</label>
-          <input type="text" class="form-control" id="Nombre" name="Nombre" required/>
+          <input type="text" value="{{Categoria.categoríaName}}" class="form-control" id="Nombre" name="Nombre" required/>
         </div>
+
+        <div class="form-group">
+          <label for="descripcion" class="form-label">Descripcion:</label>
+          <input type="text" value="{{Categoria.descripcion}}" class="form-control" id="descripcion" name="descripcion" required/>
+        </div>
+        <input type="hidden" value="{{Categoria.id}}" name="elemetnId">
         <div>
           <button type="submit" class="btn btn-primary mt-3 float-end">Enviar</button>
-          <a href="/indexPokemones" class="btn btn-warning mt-3 float-end me-3">Cancelar</a>
+          <a href="/categorias" class="btn btn-warning mt-3 float-end me-3">Cancelar</a>
         </div>
       </form>
     </div>

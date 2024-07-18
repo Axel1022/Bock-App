@@ -13,10 +13,27 @@
               <small class="text-muted">Correo: {{this.correo}}</small><br>
               <small class="text-muted">Cantidad de libros: {{this.cantidadLibros}}</small>
             </p>
-            <div class="mt-auto text-center">
-              <a href="#" class="btn btn-outline-warning mx-2">Editar</a> 
-              <a href="#" class="btn btn-outline-danger mx-2">Eliminar</a>
-            </div>
+             <form
+                  method="post"
+                  action="/eliminarAutor"
+                  class="form-delete"
+                  onsubmit="return confirm('¿Estás seguro de que deseas eliminar este tipo?');"
+                >
+                  <a
+                    href="/adminEdd/autores/{{this.id}}"
+                    class="btn btn-primary me-2"
+                  >
+                    Editar
+                  </a>
+                  <input type="hidden" value="{{this.id}}" name="elemetnId" />
+                  <button type="submit" class="btn btn-danger delete">
+                    Borrar
+                  </button>
+                </form>
+            {{!-- <div class="mt-auto text-center">
+              <a href="#" class="btn btn-outline-warning mx-2">Editar</a>
+              <a href="/eliminar" class="btn btn-outline-danger mx-2">Eliminar</a>
+            </div> --}}
           </div>
         </div>
       </div>
