@@ -1,2 +1,57 @@
-<h1>Esto es home de libros</h1>
-<a href="/admin/libros" class="btn btn-success">libros</a>
+{{#if hasLibros}}
+  <div class="container mt-4">
+    <a href="/adminAdd/libros" class="btn btn-success mt-3">+ Nuevo Libro</a>
+    <h1 class="text-center my-4">Libros</h1>
+    <div class="row">
+      {{#each Libros}}
+        <div class="col-md-4 mb-4">
+          <div class="card h-100 border-success shadow-sm">
+            <img
+              src="{{this.urlImg}}"
+              class="card-img-top img-fluid"
+              alt="Caratula del libro"
+              style="height: 300px; object-fit: cover;"
+            />
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title text-center">{{this.titlulo}}</h5>
+              <p class="card-text text-center"><small class="text-muted">Año de
+                  publicación:
+                  {{this.anioPublic}}</small></p>
+              <p class="card-text"><strong>Categoría:</strong>
+                {{this.Categoria}}</p>
+              <p class="card-text"><strong>Autor:</strong> {{this.Autor}}</p>
+              <p class="card-text"><strong>Editorial:</strong>
+                {{this.Editorial}}</p>
+              <form
+                method="post"
+                action="/eliminarLibro"
+                class="form-delete"
+                onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta editorial?');"
+              >
+                <a href="/adminEdd/libros/{{this.id}}" class="btn btn-primary me-2">
+                  Editar
+                </a>
+                <input type="hidden" value="{{this.id}}" name="eliminarId" />
+                <button type="submit" class="btn btn-danger delete">
+                  Borrar
+                </button>
+              </form>
+              {{! <div class="text-center mt-3 mt-auto">
+                <a href="#" class="btn btn-outline-warning mx-2">Editar</a>
+                <a href="#" class="btn btn-outline-danger mx-2">Eliminar</a>
+              </div> }}
+            </div>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+
+{{else}}
+  <div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="text-center">
+      <h1>No se encontraron Libros.</h1>
+      <a href="/adminAdd/libros" class="btn btn-success mt-3">+ Nuevo Libro</a>
+    </div>
+  </div>
+{{/if}}

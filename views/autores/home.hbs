@@ -1,2 +1,52 @@
-<h1>Esto es home de autores</h1>
-<a href="/admin/autores" class="btn btn-success">Autores</a>
+{{#if hasAutores}}
+<div class="container mt-4">
+  <a href="/adminAdd/autores" class="btn btn-success mt-3">+ Nuevo Autor</a>
+  <h1 class="text-center my-4">Autores</h1>
+  <div class="row">
+    {{#each Autores}}
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 border-success shadow-sm">
+          <img src="https://cdn-icons-png.freepik.com/512/46/46475.png" class="card-img-top" alt="...">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title text-center">{{this.autorName}}</h5>
+            <p class="card-text text-center">
+              <small class="text-muted">Correo: {{this.correo}}</small><br>
+              <small class="text-muted">Cantidad de libros: {{this.cantidadLibros}}</small>
+            </p>
+             <form
+                  method="post"
+                  action="/eliminarAutor"
+                  class="form-delete"
+                  onsubmit="return confirm('¿Estás seguro de que deseas eliminar este tipo?');"
+                >
+                  <a
+                    href="/adminEdd/autores/{{this.id}}"
+                    class="btn btn-primary me-2"
+                  >
+                    Editar
+                  </a>
+                  <input type="hidden" value="{{this.id}}" name="elemetnId" />
+                  <button type="submit" class="btn btn-danger delete">
+                    Borrar
+                  </button>
+                </form>
+            {{!-- <div class="mt-auto text-center">
+              <a href="#" class="btn btn-outline-warning mx-2">Editar</a>
+              <a href="/eliminar" class="btn btn-outline-danger mx-2">Eliminar</a>
+            </div> --}}
+          </div>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+</div>
+
+
+{{else}}
+  <div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="text-center">
+      <h1>No se encontraron Autores.</h1>
+      <a href="/adminAdd/autores" class="btn btn-success mt-3">+ Nuevo Autor</a>
+    </div>
+  </div>
+{{/if}}

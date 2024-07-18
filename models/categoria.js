@@ -14,6 +14,10 @@ const Categorias = connetion.define("categorias", {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  descripcion: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
   cantidadLibros: {
     //Debo hacer la relacion con la tabla libro.
     type: DataTypes.SMALLINT,

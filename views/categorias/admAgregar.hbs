@@ -1,0 +1,25 @@
+<div class="container mt-5">
+  <div class="card">
+    <div class="card-header bg-primary text-white">
+      Formulario de Categorias - Agregar
+    </div>
+    <div class="card-body">
+      <form method="POST" action="/postCategorias">
+
+        <div class="form-group">
+          <label for="Nombre" class="form-label">Nombre:</label>
+          <input type="text" class="form-control" id="Nombre" name="Nombre" required/>
+        </div>
+
+        <div class="form-group">
+          <label for="descripcion" class="form-label">Descripcion:</label>
+          <input type="text" class="form-control" id="descripcion" name="descripcion" required/>
+        </div>
+
+        <div>
+          <button type="submit" class="btn btn-primary mt-3 float-end">Enviar</button>
+          <a href="/categorias" class="btn btn-warning mt-3 float-end me-3">Cancelar</a>
+        </div>
+      </form>
+    </div>
+  </div>

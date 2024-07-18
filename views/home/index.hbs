@@ -1,1 +1,72 @@
-<h1>Hola Mundo</h1>
+{{#if hasLibros}}
+  <div class="container mt-4">
+    <form action="/libros/filtrar" method="POST" class="form-inline mb-3">
+      <div class="row">
+        <div class="form-group mr-3">
+          <label for="titulo" class="mr-2">Buscar por título:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="titulo"
+            name="titulo"
+            placeholder="Ingrese título del libro"
+          />
+        </div>
+        <div class="form-group mr-3">
+          <label for="categorias" class="mr-2">Seleccionar categoría(s):</label>
+          <select
+            multiple
+            class="form-control"
+            id="categorias"
+            name="categorias"
+          >
+            {{#each Categorias}}
+              <option
+                value="{{this.categoríaName}}"
+              >{{this.categoríaName}}</option>
+            {{/each}}
+          </select>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary m-2">Filtrar</button>
+    </form>
+
+    <h1 class="text-center my-4">Libros</h1>
+    <div class="list-group">
+      {{#each Libros}}
+        <div class="list-group-item list-group-item-action shadow-sm mb-3">
+          <div class="row align-items-center">
+            <div class="col-md-9 p-3">
+              <h5 class="mb-1">{{this.titlulo}}</h5>
+              <p class="mb-1"><small class="text-muted">Año de publicación:
+                  {{this.anioPublic}}</small></p>
+              <p class="mb-1"><strong>Categoría:</strong> {{this.Categoria}}</p>
+              <p class="mb-1"><strong>Autor:</strong> {{this.Autor}}</p>
+              <p class="mb-1"><strong>Editorial:</strong> {{this.Editorial}}</p>
+              <a
+                href="/detalle/{{this.id}}"
+                class="btn btn-info mt-2"
+              >Detalle</a>
+            </div>
+            <div class="col-md-3">
+              <img
+                src="{{this.urlImg}}"
+                class="img-fluid rounded"
+                alt="Caratula del libro"
+                style="height: 150px; width: 100%; object-fit: cover;"
+              />
+            </div>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+{{else}}
+  <div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="text-center">
+      <h1>No se encontraron Libros.</h1>
+      <a href="/libros" class="btn btn-success mt-3">Admin libros</a>
+      <a href="/" class="btn btn-info mt-3">Volver</a>
+    </div>
+  </div>
+{{/if}}

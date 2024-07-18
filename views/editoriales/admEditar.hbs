@@ -1,0 +1,30 @@
+<div class="container mt-5">
+  <div class="card">
+    <div class="card-header bg-primary text-white">
+      Formulario de Editoriales - Editar
+    </div>
+    <div class="card-body">
+      <form method="POST" action="/adminEdd/editoriales/post">
+
+        <div class="form-group">
+          <label for="Nombre" class="form-label">Nombre:</label>
+          <input type="text" value="{{Editorial.editorialName}}" class="form-control" id="Nombre" name="Nombre" required/>
+        </div>
+
+        <div class="form-group">
+          <label for="Telefono" class="form-label">Telefono:</label>
+          <input type="text" value="{{Editorial.telefono}}" class="form-control" id="Telefono" name="telefono" required/>
+        </div>
+
+        <div class="form-group">
+          <label for="Pais" class="form-label">Pais:</label>
+          <input type="text" value="{{Editorial.pais}}" class="form-control" id="Pais" name="pais" required/>
+        </div>
+        <input type="hidden" value="{{Editorial.id}}" name="elemetnId">
+        <div>
+          <button type="submit" class="btn btn-primary mt-3 float-end">Enviar</button>
+          <a href="/editoriales" class="btn btn-warning mt-3 float-end me-3">Cancelar</a>
+        </div>
+      </form>
+    </div>
+  </div>

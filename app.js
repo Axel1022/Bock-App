@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const { engine } = require("express-handlebars");
 const conecctiondb = require("./contexts/appContext");
 
-const puerto = 1010;
+const puerto = 8080;
 const app = express();
 
 // Configuración del motor de vistas
@@ -29,7 +29,7 @@ const homeController = require("./routers/homeRouter");
 const errorController = require("./controllers/404Controller");
 const autoresController = require("./routers/autorRouter");
 const categoriasController = require("./routers/categoriaRouter");
-const editoresController = require("./routers/editorRouter");
+const editoresController = require("./routers/editorialesRouter");
 const librosController = require("./routers/libroRouter");
 app.use(homeController);
 app.use(autoresController);
@@ -39,17 +39,17 @@ app.use(librosController);
 app.use(errorController.get404);
 
 //Modles
-const autoresModel = require('./models/autores');
-const categoriaModel = require('./models/categoria');
+const autoresModel = require("./models/autores");
+const categoriaModel = require("./models/categoria");
 const editorialesModel = require("./models/editoriales");
 const librosModel = require("./models/libros");
-
 
 //Esto sincroniza los modelos de la bd
 // ({alter: true}) este no borra la data guardada
 // ({force: true}) este borra la data guardada
+
 conecctiondb
-  .sync({ force: true })
+  .sync({})
   .then((items) => {
     app.listen(puerto);
   })
