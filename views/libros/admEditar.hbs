@@ -4,7 +4,7 @@
       Formulario de Libros - Agregar
     </div>
     <div class="card-body">
-      <form method="POST" action="/adminEdd/libros/post">
+      <form enctype="multipart/form-data" method="POST" action="/adminEdd/libros/post">
 
         <div class="form-group">
           <label for="Titulo" class="form-label">Titulo:</label>
@@ -17,8 +17,8 @@
         </div>
 
         <div class="form-group">
-          <label for="Url" class="form-label">Url imagen de portada:</label>
-          <input type="url" value="{{Libro.urlImg}}" class="form-control" id="Url" name="url" required/>
+          <label for="Url" class="form-label">Selecciona una imagen:</label>
+          <input type="file" class="form-control" id="Url" name="url" />
         </div>
 
 
