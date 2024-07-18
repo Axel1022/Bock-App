@@ -4,7 +4,7 @@
       Formulario de Libros - Agregar
     </div>
     <div class="card-body">
-      <form method="POST" action="/postLibros">
+      <form  method="POST" action="/postLibros">
 
         <div class="form-group">
           <label for="Titulo" class="form-label">Titulo:</label>
@@ -12,13 +12,13 @@
         </div>
 
         <div class="form-group">
-          <label for="Anio" class="form-label">Año de publicación:</label>
+          <label for="Anio" class="form-label">Selecciona una imagen:</label>
           <input type="text" class="form-control" id="Anio" name="anio" required/>
         </div>
 
         <div class="form-group">
           <label for="Url" class="form-label">Url imagen de portada:</label>
-          <input type="url" class="form-control" id="Url" name="url" required/>
+          <input type="file" class="form-control" id="Url" name="url" required/>
         </div>
 
 

@@ -17,7 +17,7 @@ const Libros = connetion.define("libros", {
   },
   urlImg: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   },
   anioPublic: {
     type: DataTypes.STRING,
