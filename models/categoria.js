@@ -19,7 +19,6 @@ const Categorias = connetion.define("categorias", {
     allowNull: false,
   },
   cantidadLibros: {
-    //Debo hacer la relacion con la tabla libro.
     type: DataTypes.SMALLINT,
     allowNull: false,
   },
