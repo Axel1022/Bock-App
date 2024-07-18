@@ -28,17 +28,24 @@ const autoresController = require("./routers/autorRouter");
 const categoriasController = require("./routers/categoriaRouter");
 const editoresController = require("./routers/editorialesRouter");
 const librosController = require("./routers/libroRouter");
-// const imageStorage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, "public/assets/img");
-//   },
-//   filename: (req, file, cb) => {
-//     cb(null, `${file.originalname}-portada-libro-${file.size}`);
-//   },
-// });
+const imageStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "public/assets/img");
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${uuidv4()}-${file.originalname}`);
+  },
+});
 
 // Middlewares
 app.use(express.static(path.join(__dirname, "public")));
+//! Analiza el req y verifica que si llega una propiedad img, trabaala (guardarla)
+//url : dice url porque me dio pereza cambiarlo, xd
+app.use(
+  multer({
+    storage: imageStorage,
+  }).single("url")
+); //! Multer
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(homeController);
@@ -47,13 +54,6 @@ app.use(categoriasController);
 app.use(editoresController);
 app.use(librosController);
 app.use(errorController.get404);
-//! Analiza el req y verifica que si llega una propiedad img, trabaala (guardarla)
-//url : dice url porque me dio pereza cambiarlo, xd
-// app.use(
-//   multer({
-//     storage: imageStorage,
-//   }).single("imgPath")
-// ); //! Multer
 
 //Modles
 const autoresModel = require("./models/autores");
