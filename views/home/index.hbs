@@ -38,23 +38,21 @@
           <div class="row align-items-center">
             <div class="col-md-9 p-3">
               <h5 class="mb-1">{{this.titlulo}}</h5>
-              <p class="mb-1"><small class="text-muted">Año de publicación:
-                  {{this.anioPublic}}</small></p>
+              <p class="mb-1"><small class="text-muted">Año de publicación: {{this.anioPublic}}</small></p>
               <p class="mb-1"><strong>Categoría:</strong> {{this.Categoria}}</p>
               <p class="mb-1"><strong>Autor:</strong> {{this.Autor}}</p>
               <p class="mb-1"><strong>Editorial:</strong> {{this.Editorial}}</p>
-              <a
-                href="/detalle/{{this.id}}"
-                class="btn btn-info mt-2"
-              >Detalle</a>
+              <a href="/detalle/{{this.id}}" class="btn btn-info mt-2">Detalle</a>
             </div>
             <div class="col-md-3">
-              <img
-                src="{{this.urlImg}}"
-                class="img-fluid rounded"
-                alt="Caratula del libro"
-                style="height: 150px; width: 100%; object-fit: cover;"
-              />
+              <div style="max-height: 350px; overflow: hidden;">
+                <img
+                  src="{{this.imgPath}}"
+                  class="img-fluid rounded"
+                  alt="Caratula del libro"
+                  style="width: 100%; height: auto; object-fit: cover;"
+                />
+              </div>
             </div>
           </div>
         </div>

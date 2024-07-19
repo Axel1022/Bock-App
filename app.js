@@ -33,12 +33,19 @@ const imageStorage = multer.diskStorage({
     cb(null, "public/assets/img");
   },
   filename: (req, file, cb) => {
-    cb(null, `${file.originalname}-portada-libro-${file.size}`);
+    cb(null, `${uuidv4()}-${file.originalname}`);
   },
 });
 
 // Middlewares
 app.use(express.static(path.join(__dirname, "public")));
+//! Analiza el req y verifica que si llega una propiedad img, trabaala (guardarla)
+//url : dice url porque me dio pereza cambiarlo, xd
+app.use(
+  multer({
+    storage: imageStorage,
+  }).single("url")
+); //! Multer
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(homeController);

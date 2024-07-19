@@ -4,14 +4,19 @@
       Formulario de Libros - Agregar
     </div>
     <div class="card-body">
+<<<<<<< HEAD
       <form  method="POST" action="/postLibros">
+=======
+      <form method="POST" action="/postLibros" enctype="multipart/form-data">
+>>>>>>> GC
 
         <div class="form-group">
           <label for="Titulo" class="form-label">Titulo:</label>
-          <input type="text" class="form-control" id="Titulo" name="titulo" required/>
+          <input type="text" class="form-control" id="Titulo" name="titulo" required />
         </div>
 
         <div class="form-group">
+<<<<<<< HEAD
           <label for="Anio" class="form-label">Selecciona una imagen:</label>
           <input type="text" class="form-control" id="Anio" name="anio" required/>
         </div>
@@ -30,26 +35,45 @@
                 <option value="{{this.id}}">{{this.categoríaName}}</option>
                 {{/each}}
             </select>
+=======
+          <label for="Anio" class="form-label">Año de publicación:</label>
+          <input type="text" class="form-control" id="Anio" name="anio" required />
         </div>
 
         <div class="form-group">
-        <label for="autor" class="form-label">Autor:</label>
-        <select class="form-control" id="autor" name="autor" required>
+          <label for="Url" class="form-label">Selecciona una imagen:</label>
+          <input type="file" class="form-control" id="Url" name="url" required />
+>>>>>>> GC
+        </div>
+
+        <div class="form-group">
+          <label for="categoria" class="form-label">Categoría:</label>
+          <select class="form-control" id="categoria" name="categoria" required>
+            <option value="">Selecciona una categoría</option>
+            {{#each Categorias}}
+            <option value="{{this.id}}">{{this.categoríaName}}</option>
+            {{/each}}
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="autor" class="form-label">Autor:</label>
+          <select class="form-control" id="autor" name="autor" required>
             <option value="">Selecciona un autor</option>
-             {{#each Autores }}
-                <option value="{{this.id}}">{{this.autorName}}</option>
-                {{/each}}
-        </select>
+            {{#each Autores}}
+            <option value="{{this.id}}">{{this.autorName}}</option>
+            {{/each}}
+          </select>
         </div>
 
         <div class="form-group">
-        <label for="editorial" class="form-label">Editorial:</label>
-        <select class="form-control" id="editorial" name="editorial" required>
+          <label for="editorial" class="form-label">Editorial:</label>
+          <select class="form-control" id="editorial" name="editorial" required>
             <option value="">Selecciona una editorial</option>
             {{#each Editoriales}}
-                <option value="{{this.id}}">{{this.editorialName}}</option>
-                {{/each}}
-        </select>
+            <option value="{{this.id}}">{{this.editorialName}}</option>
+            {{/each}}
+          </select>
         </div>
 
         <div>
@@ -57,6 +81,7 @@
           <a href="/libros" class="btn btn-warning mt-3 float-end me-3">Cancelar</a>
         </div>
 
-      </form>
+      </form> <!-- Cerradura del formulario -->
     </div>
   </div>
+</div>

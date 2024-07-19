@@ -23,7 +23,6 @@ const Editoriales = connetion.define("editoriales", {
     allowNull: false,
   },
   cantidadLibros: {
-    //Debo hacer la relacion con la tabla libro.
     type: DataTypes.SMALLINT,
     allowNull: false,
   },

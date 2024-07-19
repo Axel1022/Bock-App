@@ -5,19 +5,21 @@
     <div class="row">
       {{#each Libros}}
         <div class="col-md-4 mb-4">
-          <div class="card h-100 border-success shadow-sm">
-            <img
-              src="{{this.urlImg}}"
-              class="card-img-top img-fluid"
-              alt="Caratula del libro"
-              style="height: 300px; object-fit: cover;"
-            />
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title text-center">{{this.titlulo}}</h5>
-              <p class="card-text text-center"><small class="text-muted">Año de
+          <div class="card h-100 border-success shadow-m">
+            <div class="d-flex justify-content-center">
+              <img
+                src="{{this.imgPath}}"
+                class="card-img-top img-fluid p-2"
+                alt="Carátula del libro"
+                style="max-height: 300px; object-fit: contain;"
+              />
+            </div>
+            <div class="card-body d-flex flex-column text-center">
+              <h5 class="card-title ">{{this.titlulo}}</h5>
+              <p class="card-text "><small class="text-muted">Año de
                   publicación:
                   {{this.anioPublic}}</small></p>
-              <p class="card-text"><strong>Categoría:</strong>
+              <p class="card-text "><strong>Categoría:</strong>
                 {{this.Categoria}}</p>
               <p class="card-text"><strong>Autor:</strong> {{this.Autor}}</p>
               <p class="card-text"><strong>Editorial:</strong>
@@ -28,7 +30,10 @@
                 class="form-delete"
                 onsubmit="return confirm('¿Estás seguro de que deseas eliminar esta editorial?');"
               >
-                <a href="/adminEdd/libros/{{this.id}}" class="btn btn-primary me-2">
+                <a
+                  href="/adminEdd/libros/{{this.id}}"
+                  class="btn btn-primary me-2"
+                >
                   Editar
                 </a>
                 <input type="hidden" value="{{this.id}}" name="eliminarId" />

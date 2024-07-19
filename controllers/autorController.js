@@ -1,7 +1,6 @@
 const autoresModel = require("../models/autores");
 const transporter = require("../services/EmailService");
 
-
 exports.getHome = (req, res, next) => {
   // Este es para presentar el home
   autoresModel.findAll().then((result) => {
@@ -120,7 +119,7 @@ exports.postEditar = (req, res, next) => {
 };
 
 exports.postEliminar = (req, res, next) => {
-  const idElemt = req.body.eliminarId;
+  const idElemt = req.body.elemetnId;
   autoresModel
     .findOne({ where: { id: idElemt } })
     .then((result) => {

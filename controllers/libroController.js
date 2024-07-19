@@ -3,6 +3,7 @@ const categoriaModel = require("../models/categoria");
 const autoresModel = require("../models/autores");
 const editorialesModel = require("../models/editoriales");
 const verifica = require("../utils/editCass");
+const path = require("path");
 
 exports.getHome = (req, res, next) => {
   librosModel
@@ -52,25 +53,24 @@ exports.getAdmAdd = (req, res, next) => {
       console.log(err);
     });
 };
+// const path = require("path"); // Importa el módulo path
+
 exports.postAdmAdd = (req, res, next) => {
   const titulo = req.body.titulo;
-  const url = req.body.url;
+  const file = req.file;
   const anio = req.body.anio;
   const idcategoria = req.body.categoria;
   const idautor = req.body.autor;
   const ideditorial = req.body.editorial;
 
-  //TODO: Tengo que convertir esos ids en sus respectivos nombres.
+  if (!file) {
+    console.log("No se ha subido ningún archivo.");
+    return;
+  }
 
-  // console.log("Id de categoria: ", idcategoria);
-  // console.log("Id de autor: ", idautor);
-  // console.log("Id de editorial: ", ideditorial);
-
-  //TODO: Logica para actualizar los libros asociados...
-  //* Lo que he pensado no es la mejor forma, lo sé pero... XD
-  //! La idea es que al momento de agregar un libro, yo busque el item al que corresponde el id
-  //! luego actualice el campo cantidadLibros!
-  //? Manos a la obra!
+  // Normaliza la ruta del archivo
+  const filePath = path.posix.join("/assets/img", file.filename);
+  console.log("El path: ", filePath);
 
   categoriaModel
     .findOne({ where: { id: idcategoria } })
@@ -112,20 +112,21 @@ exports.postAdmAdd = (req, res, next) => {
                         console.log("Editorial actualizado");
                       })
                       .catch((err) => {
-                        console.error("Error al guardar la edutorial:", err);
+                        console.error("Error al guardar la editorial:", err);
                       });
+
                     librosModel
                       .create({
                         titlulo: titulo,
-                        urlImg: url,
+                        imgPath: filePath,
                         anioPublic: anio,
                         Categoria: categoria["categoríaName"],
                         Autor: autor["autorName"],
                         Editorial: editorial["editorialName"],
                       })
                       .then((result) => {
-                        //console.log(result.dataValues); //Ver los resultados del insert
-                        console.log("Soy el mejor!");
+                        // console.log(result.dataValues); // Ver los resultados del insert
+                        console.log("Libro agregado con éxito!");
                         return res.redirect("/libros");
                       })
                       .catch((error) => {
@@ -153,6 +154,7 @@ exports.postAdmAdd = (req, res, next) => {
       console.error(err);
     });
 };
+
 exports.getAdmEdd = (req, res, next) => {
   categoriaModel
     .findAll()
@@ -199,26 +201,25 @@ exports.getAdmEdd = (req, res, next) => {
       console.log(err);
     });
 };
+// const path = require("path");
+
 exports.postEditar = (req, res, next) => {
   const librolId = req.body.elemetnId;
   const titulo = req.body.titulo;
-  const url = req.body.url;
+  const file = req.file;
   const anio = req.body.anio;
   const idcategoria = req.body.categoria;
   const idautor = req.body.autor;
   const ideditorial = req.body.editorial;
 
+  let filePath;
+
+  if (file) {
+    // Normaliza la ruta del archivo si hay un archivo
+    filePath = path.posix.join("/assets/img", file.filename);
+  }
+
   //TODO: Tengo que convertir esos ids en sus respectivos nombres.
-
-  // console.log("Id de categoria: ", idcategoria);
-  // console.log("Id de autor: ", idautor);
-  // console.log("Id de editorial: ", ideditorial);
-
-  //TODO: Logica para actualizar los libros asociados...
-  //* Lo que he pensado no es la mejor forma, lo sé pero... XD
-  //! La idea es que al momento de agregar un libro, yo busque el item al que corresponde el id
-  //! luego actualice el campo cantidadLibros!
-  //? Manos a la obra!
 
   categoriaModel
     .findOne({ where: { id: idcategoria } })
@@ -242,215 +243,21 @@ exports.postEditar = (req, res, next) => {
                           return res.redirect("/libros");
                         }
 
-                        console.log(`Categoría: ${libro.Categoria}`);
-                        console.log(`Autor: ${libro.Autor}`);
-                        console.log(`Editorial: ${libro.Editorial}`);
-                        //Aqui viene mi mangu, xd
-                        //TODO: La idea es verificar si son diferentes, si lo son, pues le resto 1 en libros a la categoria, autor o editorial y luego le sumo 1 al nuevo item...
-                        //* Creo que se entiende, xd
+                        let updates = {
+                          titulo: titulo,
+                          anioPublic: anio,
+                          Categoria: categoria["categoríaName"],
+                          Autor: autor["autorName"],
+                          Editorial: editorial["editorialName"],
+                        };
 
-                        //! Para categoria
-                        let veri = verifica(
-                          //Verifica si son diferente, esto trae true o false
-                          libro.Categoria,
-                          categoria["categoríaName"]
-                        );
-                        if (!veri) {
-                          console.log("xd"); // Aqui no ha pasado nada (es la misma categoria, xd)
-                        } else {
-                          //Si la categoria ha cambiado
-                          categoriaModel
-                            .findOne({
-                              //Buscar lel registro que tenga esa categoria...
-                              where: {
-                                categoríaName: libro.Categoria,
-                              },
-                            })
-                            .then((result) => {
-                              if (result) {
-                                result.cantidadLibros -= 1; // Se le resta 1 porque la cambiaron, es facil de entender, no?
-                                result
-                                  .save()
-                                  .then(() => {
-                                    console.log(
-                                      "Cale -1 actualizado: ",
-                                      libro.Categoria
-                                    );
-                                  })
-                                  .catch((err) => {
-                                    console.error(
-                                      "Error al guardar la autor:",
-                                      err
-                                    );
-                                  });
-                                categoriaModel //Esta parte es para buscar el registro de la categoria por la que cambió...
-                                  .findOne({
-                                    where: {
-                                      categoríaName: categoria["categoríaName"], //Esta es la categoria nueva
-                                    },
-                                  })
-                                  .then((result) => {
-                                    if (result) {
-                                      result.cantidadLibros += 1; //Se le suma 1
-                                      result
-                                        .save()
-                                        .then(() => {
-                                          console.log(
-                                            "Cate +1 actualizado: ",
-                                            categoria["categoríaName"]
-                                          );
-                                        })
-                                        .catch((err) => {
-                                          console.error(
-                                            "Error al guardar la autor:",
-                                            err
-                                          );
-                                        });
-                                    }
-                                  });
-                              }
-                            });
-                        } //Fin, xd
-                        //! Para Editorial
-                        veri = verifica(
-                          //Verifica si son diferente, esto trae true o false
-                          libro.Editorial,
-                          autor["autorName"]
-                        );
-                        if (!veri) {
-                          console.log("xd"); // Aqui no ha pasado nada (es la misma categoria, xd)
-                        } else {
-                          //Si la categoria ha cambiado
-                          autoresModel
-                            .findOne({
-                              //Buscar lel registro que tenga esa categoria...
-                              where: {
-                                autorName: libro.Autor,
-                              },
-                            })
-                            .then((result) => {
-                              if (result) {
-                                result.cantidadLibros -= 1; // Se le resta 1 porque la cambiaron, es facil de entender, no?
-                                result
-                                  .save()
-                                  .then(() => {
-                                    console.log(
-                                      "Libro -1 actualizado: ",
-                                      libro.Autor
-                                    );
-                                  })
-                                  .catch((err) => {
-                                    console.error(
-                                      "Error al actualizar el autor:",
-                                      err
-                                    );
-                                  });
-                                autoresModel //Esta parte es para buscar el registro de la categoria por la que cambió...
-                                  .findOne({
-                                    where: {
-                                      autorName: autor["autorName"], //Esta es la categoria nueva
-                                    },
-                                  })
-                                  .then((result) => {
-                                    if (result) {
-                                      result.cantidadLibros += 1; //Se le suma 1
-                                      result
-                                        .save()
-                                        .then(() => {
-                                          console.log(
-                                            "Cate +1 actualizado: ",
-                                            autor["autorName"]
-                                          );
-                                        })
-                                        .catch((err) => {
-                                          console.error(
-                                            "Error al guardar la autor:",
-                                            err
-                                          );
-                                        });
-                                    }
-                                  });
-                              }
-                            });
-                        } //Fin, xd
-                        veri = verifica(
-                          //Verifica si son diferente, esto trae true o false
-                          libro.Autor,
-                          editorial["editorialName"]
-                        );
-                        if (!veri) {
-                          console.log("xd"); // Aqui no ha pasado nada (es la misma categoria, xd)
-                        } else {
-                          //Si la categoria ha cambiado
-                          editorialesModel
-                            .findOne({
-                              //Buscar lel registro que tenga esa categoria...
-                              where: {
-                                editorialName: libro.Editorial,
-                              },
-                            })
-                            .then((result) => {
-                              if (result) {
-                                result.cantidadLibros -= 1; // Se le resta 1 porque la cambiaron, es facil de entender, no?
-                                result
-                                  .save()
-                                  .then(() => {
-                                    console.log(
-                                      "Edi -1 actualizado: ",
-                                      libro.Autor
-                                    );
-                                  })
-                                  .catch((err) => {
-                                    console.error(
-                                      "Error al actualizar la edi:",
-                                      err
-                                    );
-                                  });
-                                editorialesModel //Esta parte es para buscar el registro de la categoria por la que cambió...
-                                  .findOne({
-                                    where: {
-                                      editorialName: editorial["editorialName"], //Esta es la categoria nueva
-                                    },
-                                  })
-                                  .then((result) => {
-                                    if (result) {
-                                      result.cantidadLibros += 1; //Se le suma 1
-                                      result
-                                        .save()
-                                        .then(() => {
-                                          console.log(
-                                            "Edi +1 actualizado: ",
-                                            editorial["editorialName"]
-                                          );
-                                        })
-                                        .catch((err) => {
-                                          console.error(
-                                            "Error al guardar la autor:",
-                                            err
-                                          );
-                                        });
-                                    }
-                                  });
-                              }
-                            });
-                        } //Fin, xd
+                        if (file) {
+                          updates.imgPath = filePath;
+                        }
 
-                        //! Que se puede mejorar eso? pos claro, estamos de acerdo ;)
-                        //Tengo que hacer esto 2 veces mas 😵
-
-                        //Aqui simplemetne actualizamos, fin de la ecuaciion
-                        return librosModel.update(
-                          {
-                            titulo: titulo,
-                            urlImg: url,
-                            anioPublic: anio,
-                            Categoria: categoria["categoríaName"],
-                            Autor: autor["autorName"],
-                            Editorial: editorial["editorialName"],
-                          },
-                          { where: { id: librolId } }
-                        );
-                        //Honestamente ya no estoy entendiendo lo que estopy haciendo, xd
+                        return librosModel.update(updates, {
+                          where: { id: librolId },
+                        });
                       })
                       .then(() => {
                         return res.redirect("/libros");
@@ -484,6 +291,7 @@ exports.postEditar = (req, res, next) => {
       console.error(err);
     });
 };
+
 exports.postEliminar = (req, res, next) => {
   const idElemt = req.body.eliminarId;
   librosModel
